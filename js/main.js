@@ -1,0 +1,1 @@
+let layer=document.querySelector(".main__layer"),flag=!0;onClick=e=>{flag?(e.classList.add("active"),e.setAttribute("title","Выбрано")):(e.classList.remove("active"),e.setAttribute("title","Выбрать")),flag=!flag},linked=()=>{flag?layer.classList.add("active"):layer.classList.remove("active"),flag=!flag};

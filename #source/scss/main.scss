@@ -1,0 +1,293 @@
+$j: center;
+$c: center;
+$w: wrap;
+
+@mixin jcw($j, $c, $w) {
+	display: flex;
+	justify-content: $j;
+	align-items: $c;
+	flex-wrap: $w;
+}
+
+%inner-block {
+	width: 320px;
+	height: 480px;
+	border-radius: 15px;
+	position: relative;
+}
+
+%layer {
+	position: absolute;
+	z-index: 1;
+	margin-top: -15px;
+}
+
+%transition {
+	-webkit-transition: 0.2s ease-out 0.2s;
+	-moz-transition: 0.2s ease-out 0.2s;
+	-o-transition: 0.2s ease-out 0.2s;
+	transition: 0.2s ease-out 0.2s;
+}
+
+$border: 4px solid;
+$blue: #1698d9;
+$red: #d91667;
+$silver: #b3b3b3;
+$white: #fff;
+$black: #000;
+$persent: 100%;
+$bs: 0 0 20px 0;
+
+.main {
+	display: flex;
+	align-items: center;
+	flex: 1 1 auto;
+	position: relative;
+	width: $persent;
+
+	&__body {
+		@include jcw($j, $c, $w);
+		margin: 23px -40px 0;
+	}
+
+	&__block {
+		@include jcw($j, $c, $w);
+		padding: 0 40px 67px;
+		font-family: 'Conv_trebuc';
+		flex: 0 0 33.33%;
+		position: relative;
+		
+		&:first-of-type {
+			.main__inner {
+				border: $border $blue;
+
+				&::before {
+					border-bottom: $border $blue;
+				}
+
+			}
+			.main__circle {
+				background-color: $blue;
+			}
+		}
+
+		&:nth-of-type(2) {
+			.main__inner {
+				border: $border $red;
+
+				&::before {
+					border-bottom: $border $red;
+				}
+
+			}
+
+			.main__circle {
+				background-color: $red;
+			}
+		}
+
+		&:last-of-type {
+			.main__inner {
+				border: $border $silver;
+
+				&::before {
+					border-bottom: $border $silver;
+				}
+
+			}
+
+			.main__circle {
+				background-color: $silver;
+			}
+
+			.main__descr {
+				color: #ffff66;
+			}
+		}
+	}
+
+	&__descr {
+		@include jcw($j, $c, $w);
+		text-shadow: 0 1px 0 $black;
+		color: $white;
+		font-size: 13px;
+		font-weight: 400;
+		line-height: 16px;
+		margin-top: 15px;
+
+		button {
+			background: none;
+			color: $blue;
+			font-weight: 700;
+			border-bottom: 1px dashed $blue;
+			cursor: pointer;
+
+			&:hover {
+				text-shadow: 1px 1px 2px $blue, 0 0 1em $blue;
+			}
+		}
+	}
+
+	&__inner {
+		@extend %inner-block;
+		background-color: #f2f2f2;
+		position: relative;
+
+		&::before {
+			position: absolute;
+			content: '';
+			width: 70px;
+			height: 50px;
+			top: -20px;
+			left: -30px;
+			background: url('/img/bg.png');
+			transform: rotate(-45deg);
+		}
+
+		&:hover {
+			cursor: pointer;
+			@extend %transition;
+		}
+
+		p {
+			color: #666666;
+			font-weight: 400;
+
+			&:first-child {
+				font-size: 16px;
+			}
+
+			&:last-child {
+				font-size: 14px;
+				padding-top: 16px;
+
+				span {
+					font-weight: 700;
+				}
+			}
+		}
+
+		h2,
+		h3 {
+			color: $black;
+			font-weight: 700;
+		}
+
+		h2 {
+			font-size: 48px;
+			padding-top: 5px;
+			margin-left: -3px;
+		}
+
+		h3 {
+			font-size: 24px;
+
+		}
+	}
+
+	&__text {
+		padding: 1rem 58px 0 49px;
+		position: relative;
+		z-index: 1;
+	}
+
+	&__img {
+		width: $persent;
+		height: $persent;
+		max-width: 320px;
+		max-height: 273px;
+		position: absolute;
+		bottom: 0;
+
+		img {
+			width: $persent;
+			height: $persent;
+		}
+	}
+
+	&__circle {
+		@include jcw($j, $c, $w);
+		width: 81px;
+		height: 81px;
+		border-radius: 50%;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		margin: 15px;
+		padding: 20px;
+
+		span {
+			color: $white;
+			font-weight: 400;
+			line-height: 22px;
+
+			&:first-child {
+				font-size: 42px;
+			}
+
+			&:last-child {
+				font-size: 21px;
+				padding-top: 10px;
+			}
+		}
+	}
+
+	.main__layer.disable,
+	.main__layer.disable.active {
+		@extend %inner-block;
+		@extend %layer;
+		cursor: default;
+		opacity: 0.5;
+		background: linear-gradient(135deg, transparent 33px, #fff 0);
+		&:hover {
+			box-shadow: none;
+		}
+	}       
+
+	.main__layer {
+		@extend %inner-block;
+		@extend %layer;
+		cursor: pointer;
+		background: none;
+		&:hover {
+			box-shadow: $bs #ffff66;
+		}
+		&::before {
+			position: absolute;
+			content: '';
+			width: 70px;
+			height: 50px;
+			top: -20px;
+			left: -30px;
+			background: url('/img/bg.png');
+			transform: rotate(-45deg);
+		}
+	}
+	.main__layer.active {
+		background: linear-gradient(135deg, transparent 33px, rgba(0, 0, 0, 0.5) 0);
+		&:hover {
+			box-shadow: none;
+		}
+	}
+	@-moz-document url-prefix() {
+		.main__layer {
+			&::before {
+				width: 65px;
+				height: 45px;
+				top: -15px;
+				left: -25px;
+			}
+		}
+		.main__layer,
+	    .main__layer.disable,
+		.main__layer.active {
+	        margin-top: -30px;
+	    }
+	}
+}
+
+@media (max-width: 1200px) {}
+
+@media (max-width: 992px) {}
+
+@media (max-width: 767px) {}
